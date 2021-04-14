@@ -1,0 +1,44 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+* {
+  vertical-align: baseline;
+  font-weight: inherit;
+  font-family: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  border: 0;
+  outline: 0;
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --scissors-light: hsl(39, 89%, 49%) to hsl(40, 84%, 53%);
+  --paper-gradient: hsl(230, 89%, 62%) to hsl(230, 89%, 65%);
+  --rock-gradient: hsl(349, 71%, 52%) to hsl(349, 70%, 56%);
+  --Lizard-gradient: hsl(261, 73%, 60%) to hsl(261, 72%, 63%);
+  --cyan: hsl(189, 59%, 53%) to hsl(189, 58%, 57%);
+  --dark-text: hsl(229, 25%, 31%);
+  --score-text: hsl(229, 64%, 46%);
+  --header-outline: hsl(217, 16%, 45%);
+  --background-gradient: hsl(214, 47%, 23%) to hsl(237, 49%, 15%);
+}
+
+html {
+  background-color: var(--dark-text);
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+@media all and (min-width: 376px) {
+}
