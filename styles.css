@@ -21,19 +21,45 @@ html {
 }
 
 :root {
-  --scissors-light: hsl(39, 89%, 49%) to hsl(40, 84%, 53%);
-  --paper-gradient: hsl(230, 89%, 62%) to hsl(230, 89%, 65%);
-  --rock-gradient: hsl(349, 71%, 52%) to hsl(349, 70%, 56%);
-  --Lizard-gradient: hsl(261, 73%, 60%) to hsl(261, 72%, 63%);
-  --cyan: hsl(189, 59%, 53%) to hsl(189, 58%, 57%);
+  --scissors-light: radial-gradient(
+    circle,
+    rgba(236, 169, 34, 1) 0%,
+    rgba(236, 158, 14, 1) 100%
+  );
+  --paper-gradient: radial-gradient(
+    circle,
+    hsl(230, 89%, 62%) 0%,
+    hsl(230, 89%, 65%) 100%
+  );
+  --rock-gradient: radial-gradient(
+    circle,
+    hsl(349, 71%, 52%) 0%,
+    hsl(349, 70%, 56%) 100%
+  );
+  --Lizard-gradient: radial-gradient(
+    circle,
+    hsl(261, 73%, 60%) 0%,
+    hsl(261, 72%, 63%) 100%
+  );
+  --cyan: radial-gradient(
+    circle,
+    hsl(189, 59%, 53%) 0%,
+    hsl(189, 58%, 57%) 100%
+  );
   --dark-text: hsl(229, 25%, 31%);
   --score-text: hsl(229, 64%, 46%);
   --header-outline: hsl(217, 16%, 45%);
-  --background-gradient: hsl(214, 47%, 23%) to hsl(237, 49%, 15%);
+  --background-color: rgb(31, 55, 86);
+  --background-gradient: radial-gradient(
+    circle,
+    rgba(31, 55, 86, 1) 0%,
+    rgba(20, 21, 57, 1) 100%
+  );
 }
 
 html {
-  background-color: var(--dark-text);
+  background: var(--background-color);
+  background: var(--background-gradient);
   font-family: "Barlow Semi Condensed", sans-serif;
   font-weight: 600;
   text-transform: uppercase;
