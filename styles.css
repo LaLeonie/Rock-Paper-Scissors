@@ -21,21 +21,12 @@ html {
 }
 
 :root {
-  --scissors-light: radial-gradient(
-    circle,
-    rgba(236, 169, 34, 1) 0%,
-    rgba(236, 158, 14, 1) 100%
-  );
-  --paper-gradient: radial-gradient(
-    circle,
-    hsl(230, 89%, 62%) 0%,
-    hsl(230, 89%, 65%) 100%
-  );
-  --rock-gradient: radial-gradient(
-    circle,
-    hsl(349, 71%, 52%) 0%,
-    hsl(349, 70%, 56%) 100%
-  );
+  --scissors-light: rgba(236, 169, 34, 1);
+  --scissors-dark: rgba(236, 158, 14, 1);
+  --paper-light: hsl(230, 89%, 65%);
+  --paper-dark: hsl(230, 89%, 62%);
+  --rock-light: hsl(349, 70%, 56%);
+  --rock-dark: hsl(349, 71%, 52%);
   --Lizard-gradient: radial-gradient(
     circle,
     hsl(261, 73%, 60%) 0%,
@@ -63,8 +54,165 @@ html {
   font-family: "Barlow Semi Condensed", sans-serif;
   font-weight: 600;
   text-transform: uppercase;
+}
+
+/* Layout */
+
+.Wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.Wrapper > * {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.Wrapper > .HeaderSection {
+  margin: 32px;
+}
+
+.Wrapper > .GameSection {
+  margin: auto;
+}
+
+.Wrapper > .LegendSection {
+  margin: 56px auto;
+}
+
+.GameSection__StepTwo {
+  display: none;
+}
+
+.GameSection__StepThree {
+  display: none;
+}
+
+/* Header Section */
+.HeaderSection {
+  border: 3px solid var(--header-outline);
+  border-radius: 5px;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.HeaderSection__header {
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1rem;
   color: #fff;
 }
 
-@media all and (min-width: 376px) {
+.HeaderSection__score.Card {
+  background: linear-gradient(0deg, #f3f3f3 0%, #ffffff 100%);
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.196706);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+  width: 80px;
+  height: 72px;
+}
+
+.Card__title {
+  color: var(--score-text);
+  font-weight: 600;
+  font-size: 0.625rem;
+  line-height: 0.75rem;
+  text-align: center;
+  letter-spacing: 1.5625px;
+}
+
+.Card__content {
+  color: #565468;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Game Section */
+.GameSection {
+}
+
+.GameSection__StepOne {
+  position: relative;
+  background-image: url("./images/bg-triangle.svg");
+  height: 166px;
+  width: 188px;
+  background-repeat: no-repeat;
+  padding: 65px;
+  background-size: contain;
+  background-position: center;
+}
+
+.GameSection__button {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgb(243, 243, 243);
+  background: radial-gradient(
+    circle,
+    rgba(243, 243, 243, 1) 0%,
+    rgba(218, 218, 218, 1) 100%
+  );
+  border-style: solid;
+  border-width: 15px;
+}
+
+.button--paper {
+  border-color: var(--paper-light);
+  background: url("./images/icon-paper.svg"), rgb(243, 243, 243);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 45px;
+  left: -50px;
+  top: -50px;
+}
+
+.button--scissors {
+  border-color: var(--scissors-light);
+  background: url("./images/icon-scissors.svg"), rgb(243, 243, 243);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 45px;
+  right: -50px;
+  top: -50px;
+}
+
+.button--rock {
+  border-color: var(--rock-light);
+  background: url("./images/icon-rock.svg"), rgb(243, 243, 243);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 45px;
+  bottom: -50px;
+  left: calc(65px / 2);
+}
+
+/* Legend Section */
+.LegendSection__button {
+  border: 1px solid #ffffff;
+  color: #fff;
+  border-radius: 8px;
+  padding: 11px 37px;
+  background: transparent;
+  font-weight: 600;
+  line-height: 19px;
+  text-align: center;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+
+.LegendSection__button:hover,
+.LegendSection__button:focus {
+  color: var(--dark-text);
+  background-color: #fff;
+}
+
+.HeaderSection__score @media all and (min-width: 376px) {
 }
