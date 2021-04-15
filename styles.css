@@ -132,7 +132,7 @@ html {
   align-items: center;
   padding: 10px 0;
   width: 80px;
-  height: 72px;
+  min-height: 72px;
 }
 
 .Card__title {
@@ -149,6 +149,26 @@ html {
   font-size: 2.5rem;
   font-weight: bold;
   text-align: center;
+}
+
+@media all and (min-width: 376px) {
+  .HeaderSection__header {
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 1.4rem;
+    color: #fff;
+  }
+
+  .HeaderSection__score.Card {
+    /* background: linear-gradient(0deg, #f3f3f3 0%, #ffffff 100%);
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.196706);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; */
+    padding: 15px 0;
+    width: 150px;
+  }
 }
 
 /* Game Section */
