@@ -21,12 +21,12 @@ html {
 }
 
 :root {
-  --scissors-light: rgba(236, 169, 34, 1);
-  --scissors-dark: rgba(236, 158, 14, 1);
+  --scissors-light: hsl(39, 89%, 49%);
+  --scissors-dark: hsl(28, 77%, 44%);
   --paper-light: hsl(230, 89%, 65%);
-  --paper-dark: hsl(230, 89%, 62%);
+  --paper-dark: hsl(230, 64%, 46%);
   --rock-light: hsl(349, 70%, 56%);
-  --rock-dark: hsl(349, 71%, 52%);
+  --rock-dark: hsl(347, 75%, 35%);
   --Lizard-gradient: radial-gradient(
     circle,
     hsl(261, 73%, 60%) 0%,
@@ -136,6 +136,11 @@ html {
 
 /* Game Section */
 .GameSection {
+  --button-width: 120px;
+  --button-height: 120px;
+  --button-border-radius: 50%;
+  --outer-shadow-top: -7px;
+  --outer-shadow-left: -15px;
 }
 
 .GameSection__StepOne {
@@ -147,13 +152,14 @@ html {
   padding: 65px;
   background-size: contain;
   background-position: center;
+  z-index: -2;
 }
 
 .GameSection__button {
   position: absolute;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
+  width: var(--button-width);
+  height: var(--button-height);
+  border-radius: var(--button-border-radius);
   background: rgb(243, 243, 243);
   background: radial-gradient(
     circle,
@@ -164,6 +170,23 @@ html {
   border-width: 15px;
 }
 
+.GameSection__button .btn {
+  position: relative;
+}
+
+/* .GameSection__button .btn:after {
+  position: absolute;
+  content: "";
+  display: block;
+  width: 120px;
+  height: 120px;
+  background: red;
+  border-radius: 50%;
+  z-index: -1;
+  left: -15px;
+  top: -24px;
+} */
+
 .button--paper {
   border-color: var(--paper-light);
   background: url("./images/icon-paper.svg"), rgb(243, 243, 243);
@@ -172,6 +195,20 @@ html {
   background-size: 45px;
   left: -50px;
   top: -50px;
+}
+
+.GameSection__button.button--paper:after {
+  background: var(--paper-dark);
+  position: absolute;
+  content: "";
+  display: block;
+  width: var(--button-width);
+  height: var(--button-height);
+  background: var(--paper-dark);
+  border-radius: var(--button-border-radius);
+  z-index: -1;
+  left: var(--outer-shadow-left);
+  top: var(--outer-shadow-top);
 }
 
 .button--scissors {
@@ -184,6 +221,20 @@ html {
   top: -50px;
 }
 
+.GameSection__button.button--scissors:after {
+  background: var(--paper-dark);
+  position: absolute;
+  content: "";
+  display: block;
+  width: var(--button-width);
+  height: var(--button-height);
+  background: var(--scissors-dark);
+  border-radius: var(--button-border-radius);
+  z-index: -1;
+  left: var(--outer-shadow-left);
+  top: var(--outer-shadow-top);
+}
+
 .button--rock {
   border-color: var(--rock-light);
   background: url("./images/icon-rock.svg"), rgb(243, 243, 243);
@@ -192,6 +243,20 @@ html {
   background-size: 45px;
   bottom: -50px;
   left: calc(65px / 2);
+}
+
+.GameSection__button.button--rock:after {
+  background: var(--paper-dark);
+  position: absolute;
+  content: "";
+  display: block;
+  width: var(--button-width);
+  height: var(--button-height);
+  background: var(--rock-dark);
+  border-radius: var(--button-border-radius);
+  z-index: -1;
+  left: var(--outer-shadow-left);
+  top: var(--outer-shadow-top);
 }
 
 /* Legend Section */
