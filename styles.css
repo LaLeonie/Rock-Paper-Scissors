@@ -174,18 +174,21 @@ html {
   position: relative;
 }
 
-/* .GameSection__button .btn:after {
+.GameSection__button .btn:before {
   position: absolute;
   content: "";
   display: block;
-  width: 120px;
-  height: 120px;
-  background: red;
-  border-radius: 50%;
-  z-index: -1;
-  left: -15px;
-  top: -24px;
-} */
+  width: 90px;
+  height: 90px;
+  border-radius: var(--button-border-radius);
+  border-top: #babfd4 solid 5px;
+  border-left: #babfd4 solid 1px;
+  border-right: #babfd4 solid 1px;
+  z-index: 2;
+  left: 0;
+  top: -17px;
+  clip-path: circle(50%);
+}
 
 .button--paper {
   border-color: var(--paper-light);
@@ -221,7 +224,7 @@ html {
   top: -50px;
 }
 
-.GameSection__button.button--scissors:after {
+.button--scissors:after {
   background: var(--paper-dark);
   position: absolute;
   content: "";
