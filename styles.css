@@ -182,6 +182,7 @@ html {
   --background-size: 45px;
   --inner-shadow-top-radius: 5px;
   --inner-shadow-side-radius: 1px;
+  --button-radius: calc(var(--button-width) / 2)
 }
 
 .GameSection__StepOne {
@@ -269,6 +270,20 @@ button {
   clip-path: circle(50%);
 }
 
+.GameSection__button .btn:hover:after{
+  position: absolute;
+  content: "";
+  display: block;
+  width: calc(var(--button-width) * 1.3);
+  height: calc(var(--button-height) * 1.3);
+  border-radius: var(--button-border-radius);
+  z-index: -1; 
+  background: #fff;
+  opacity: 0.1; 
+  left: -50px; 
+  top: -60px;
+}
+
 .button--paper {
   border-color: var(--paper-light);
   background: url("./images/icon-paper.svg"), rgb(243, 243, 243);
@@ -279,6 +294,8 @@ button {
   top: -50px;
   box-shadow: 0px 10px  var(--paper-dark);
 }
+
+
 
 .button--scissors {
   border-color: var(--scissors-light);
