@@ -193,7 +193,11 @@ html {
   padding: 65px;
   background-size: contain;
   background-position: center;
-  z-index: -2;
+  /* z-index: -2; */
+}
+
+.GameSection_StepOne:before {
+  x
 }
 
 @media all and (min-width: 376px) {
@@ -212,6 +216,9 @@ html {
   }
 }
 
+button {
+}
+
 .GameSection__button {
   position: absolute;
   width: var(--button-width);
@@ -228,8 +235,21 @@ html {
 }
 
 .GameSection__button .btn {
+  cursor: pointer;
   position: relative;
 }
+
+/* .btn:hover:before,
+.btn:focus:before {
+  position: absolute;
+  content: "";
+  display: block;
+  width: calc(var(--button-width) * 1.2);
+  height: calc(var(--button-height) * 1.2);
+  z-index: 1;
+  background: #fff;
+  opacity: 0.05;
+} */
 
 .GameSection__button .btn:before {
   position: absolute;
@@ -257,20 +277,7 @@ html {
   background-size: var(--background-size);
   left: -50px;
   top: -50px;
-}
-
-.GameSection__button.button--paper:after {
-  background: var(--paper-dark);
-  position: absolute;
-  content: "";
-  display: block;
-  width: var(--button-width);
-  height: var(--button-height);
-  background: var(--paper-dark);
-  border-radius: var(--button-border-radius);
-  z-index: -1;
-  left: var(--outer-shadow-left);
-  top: var(--outer-shadow-top);
+  box-shadow: 0px 10px  var(--paper-dark);
 }
 
 .button--scissors {
@@ -281,20 +288,7 @@ html {
   background-size: var(--background-size);
   right: -50px;
   top: -50px;
-}
-
-.button--scissors:after {
-  background: var(--paper-dark);
-  position: absolute;
-  content: "";
-  display: block;
-  width: var(--button-width);
-  height: var(--button-height);
-  background: var(--scissors-dark);
-  border-radius: var(--button-border-radius);
-  z-index: -1;
-  left: var(--outer-shadow-left);
-  top: var(--outer-shadow-top);
+  box-shadow: 0px 10px  var(--scissors-dark);
 }
 
 .button--rock {
@@ -305,6 +299,7 @@ html {
   background-size: var(--background-size);
   bottom: -50px;
   left: 30px;
+  box-shadow: 0px 10px  var(--rock-dark);
 }
 
 @media all and (min-width: 376px) {
@@ -313,22 +308,10 @@ html {
   }
 }
 
-.GameSection__button.button--rock:after {
-  background: var(--paper-dark);
-  position: absolute;
-  content: "";
-  display: block;
-  width: var(--button-width);
-  height: var(--button-height);
-  background: var(--rock-dark);
-  border-radius: var(--button-border-radius);
-  z-index: -1;
-  left: var(--outer-shadow-left);
-  top: var(--outer-shadow-top);
-}
-
 /* Legend Section */
+
 .LegendSection__button {
+  cursor: pointer;
   border: 1px solid #ffffff;
   color: #fff;
   border-radius: 8px;
