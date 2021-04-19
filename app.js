@@ -30,40 +30,38 @@ const rules = [
   { selection: "rock", selectionClass: "button--rock", beats: "scissors" },
 ];
 
+//SETUP
 //sets initial localStorage
 
 //adds player.overallScore from localStorage to DOM
 
 //THE GAME
-//1. Update game.player
+//1 - Update game.player
 
-//1. Update game.player
+//2 & 4 - Update DOM
+//upon gamestatus change
 
-//change DOM depending on game object - takes in player.currentPick, computer.currentPick, player.currentWin
+//score change
 
-//delayer computer play function - sets computer.currentPick to random selection
+//3 -  Update game.computer
 
-//calculate game result for player - function to return boolean depending on player's win
-
-//update score
-
-//update local storage
+//5 - Update local storage
 
 //handle game button click
 const handlePlay = (e) => {
   //Create Promise that
   //1. Updates game.player
-  //2. Updates DOM with new game.gameStatus and game.player
-  //3. Calls timeout function to set game.computer.currentPick
-  //Update game.player according to e.target
-  //change DOM
-  //create promise that
-  //1. waits on timeOut function to change game.computer.currentPick
-  //2. changes game.player.currentWin depending on game result
-  //3. changes DOM to third screen and displays result
-  //4. updates score
-  //5. updates local storage
+  //2. Updates GameSection DOM with new game.gameStatus and game.player
+  //3. Calls timeout function to set game.computer.currentPick & game.gameStatus
+  //4. Updates GameSection & HeaderSection DOM with game.gameStatus, game.player, game.computer
+  //5. Updates local storage
 };
 
 // add event listeners to all playing buttons
-paperButton.addEventListener("click", buttonClick);
+// paperButton.addEventListener("click", buttonClick);
+
+const sum = (a, b) => {
+  return a + b;
+};
+
+module.exports = sum;
