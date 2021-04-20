@@ -36,6 +36,8 @@ if (!storedGame) {
 }
 
 //adds player.overallScore from localStorage to DOM
+const score = storedGame.player.overallScore;
+document.querySelector(".Card__score").textContent = score;
 
 //THE GAME
 //1 - Update game.player
