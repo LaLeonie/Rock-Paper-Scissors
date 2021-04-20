@@ -1,5 +1,4 @@
 // define DOM element variables
-const paperButton = document.querySelector(".button--paper");
 
 // define game object
 const game = {
@@ -49,6 +48,8 @@ const rules = [
 
 //handle game button click
 const handlePlay = (e) => {
+  e.preventDefault();
+  console.log(e.target);
   //Create Promise that
   //1. Updates game.player
   //2. Updates GameSection DOM with new game.gameStatus and game.player
@@ -58,7 +59,15 @@ const handlePlay = (e) => {
 };
 
 // add event listeners to all playing buttons
-// paperButton.addEventListener("click", buttonClick);
+
+document.addEventListener("DOMContentLoaded", function () {
+  const paperButton = document.querySelector(".button--paper");
+  const scissorsButton = document.querySelector(".button--scissors");
+  const rockButton = document.querySelector(".button--rock");
+  paperButton.addEventListener("click", handlePlay);
+  scissorsButton.addEventListener("click", handlePlay);
+  rockButton.addEventListener("click", handlePlay);
+});
 
 const sum = (a, b) => {
   return a + b;
