@@ -1,7 +1,5 @@
-// define DOM element variables
-
 // define game object
-const game = {
+const initialGame = {
   gameStatus: "firstStep",
   player: {
     currentPick: {
@@ -31,6 +29,11 @@ const rules = [
 
 //SETUP
 //sets initial localStorage
+let storedGame = JSON.parse(localStorage.getItem("RPS"));
+if (!storedGame) {
+  localStorage.setItem("RPS", JSON.stringify(initialGame));
+  storedGame = initialGame;
+}
 
 //adds player.overallScore from localStorage to DOM
 
@@ -59,7 +62,6 @@ const handlePlay = (e) => {
 };
 
 // add event listeners to all playing buttons
-
 document.addEventListener("DOMContentLoaded", function () {
   const paperButton = document.querySelector(".button--paper");
   const scissorsButton = document.querySelector(".button--scissors");
@@ -68,9 +70,3 @@ document.addEventListener("DOMContentLoaded", function () {
   scissorsButton.addEventListener("click", handlePlay);
   rockButton.addEventListener("click", handlePlay);
 });
-
-const sum = (a, b) => {
-  return a + b;
-};
-
-module.exports = sum;
