@@ -32,7 +32,7 @@ const rules = [
 let storedGame = JSON.parse(localStorage.getItem("RPS"));
 if (!storedGame) {
   localStorage.setItem("RPS", JSON.stringify(initialGame));
-  storedGame = initialGame;
+  storedGame = JSON.parse(JSON.stringify(initialGame));
 }
 
 //adds player.overallScore from localStorage to DOM
@@ -41,6 +41,10 @@ document.querySelector(".Card__score").textContent = score;
 
 //THE GAME
 //1 - Update game.player
+const updatePlayer = (e) => {
+  //get class that is selected
+  //set currentPick
+};
 
 //2 & 4 - Update DOM
 //upon gamestatus change
