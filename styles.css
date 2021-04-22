@@ -81,14 +81,6 @@ html {
   margin: 56px auto;
 }
 
-.GameSection__StepTwo {
-  display: none;
-}
-
-.GameSection__StepThree {
-  display: none;
-}
-
 @media all and (min-width: 376px) {
   .Wrapper {
     padding: 32px;
@@ -173,36 +165,42 @@ html {
 
 /* Game Section */
 .GameSection {
+  position: relative;
+  height: 166px;
+  width: 188px;
+  padding: 65px;
   --button-width: 120px;
   --button-height: 120px;
   --button-border-radius: 50%;
   --outer-shadow-top: -7px;
   --outer-shadow-left: -15px;
-  --border-width: 15px;
+  --border-width: 12px;
   --background-size: 45px;
   --inner-shadow-top-radius: 5px;
   --inner-shadow-side-radius: 1px;
-  --button-radius: calc(var(--button-width) / 2)
+  --button-radius: calc(var(--button-width) / 2);
 }
 
 .GameSection__StepOne {
-  position: relative;
   background-image: url("./images/bg-triangle.svg");
-  height: 166px;
-  width: 188px;
   background-repeat: no-repeat;
-  padding: 65px;
   background-size: contain;
   background-position: center;
-  /* z-index: -2; */
+  display: none;
 }
 
-.GameSection_StepOne:before {
-  x
+.GameSection__StepTwo {
+  /* display: none; */
+}
+
+.GameSection__StepThree {
+  display: none;
 }
 
 @media all and (min-width: 376px) {
   .GameSection {
+    height: 430px;
+    width: 476px;
     --button-width: 200px;
     --button-height: 200px;
     --border-width: 20px;
@@ -210,14 +208,6 @@ html {
     --inner-shadow-top-radius: 10px;
     --inner-shadow-side-radius: 2px;
   }
-
-  .GameSection__StepOne {
-    height: 430px;
-    width: 476px;
-  }
-}
-
-button {
 }
 
 .GameSection__button {
@@ -233,6 +223,9 @@ button {
   );
   border-style: solid;
   border-width: var(--border-width);
+}
+
+.GameSection__StepTwo .GameSection__button {
 }
 
 .GameSection__button .btn {
@@ -270,17 +263,17 @@ button {
   clip-path: circle(50%);
 }
 
-.GameSection__button .btn:hover:after{
+.GameSection__button .btn:hover:after {
   position: absolute;
   content: "";
   display: block;
   width: calc(var(--button-width) * 1.3);
   height: calc(var(--button-height) * 1.3);
   border-radius: var(--button-border-radius);
-  z-index: -1; 
+  z-index: -1;
   background: #fff;
-  opacity: 0.1; 
-  left: -50px; 
+  opacity: 0.1;
+  left: -50px;
   top: -60px;
 }
 
@@ -292,10 +285,8 @@ button {
   background-size: var(--background-size);
   left: -50px;
   top: -50px;
-  box-shadow: 0px 10px  var(--paper-dark);
+  box-shadow: 0px 10px var(--paper-dark);
 }
-
-
 
 .button--scissors {
   border-color: var(--scissors-light);
@@ -305,7 +296,7 @@ button {
   background-size: var(--background-size);
   right: -50px;
   top: -50px;
-  box-shadow: 0px 10px  var(--scissors-dark);
+  box-shadow: 0px 10px var(--scissors-dark);
 }
 
 .button--rock {
@@ -316,12 +307,41 @@ button {
   background-size: var(--background-size);
   bottom: -50px;
   left: 30px;
-  box-shadow: 0px 10px  var(--rock-dark);
+  box-shadow: 0px 10px var(--rock-dark);
 }
 
 @media all and (min-width: 376px) {
   .button--rock {
     left: 130px;
+  }
+}
+
+.GameSection__caption {
+  color: #fff;
+  letter-spacing: 1.1px;
+
+  text-transform: uppercase;
+  position: absolute;
+  left: -25px;
+  top: 100px;
+  width: 264px;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media all and (min-width: 376px) {
+  .GameSection__caption {
+    font-size: 24px;
+    line-height: 32px;
+    font-style: Bold;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    position: absolute;
+    left: -25px;
+    top: -150px;
+    width: 565px;
+    display: flex;
+    justify-content: space-between;
   }
 }
 
