@@ -62,6 +62,7 @@ html {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  position: relative;
 }
 
 .Wrapper > * {
@@ -73,7 +74,8 @@ html {
   margin: 32px;
 }
 
-.Wrapper > .GameSection {
+.Wrapper > .GameSection,
+.Wrapper > .ResultSection {
   margin: auto;
 }
 
@@ -191,10 +193,6 @@ html {
 
 .GameSection__StepTwo {
   /* display: none; */
-}
-
-.GameSection__StepThree {
-  display: none;
 }
 
 @media all and (min-width: 376px) {
@@ -356,6 +354,44 @@ html {
     display: flex;
     justify-content: space-between;
   }
+}
+
+/* Result Section */
+
+.ResultSection {
+  position: absolute;
+  width: 80vw;
+  height: 40vh;
+  left: 10vw;
+  top: 52vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+}
+
+.ResultSection__result {
+  font-weight: 700;
+  font-size: 56px;
+  line-height: 67.2px;
+}
+
+.ResultSection__button {
+  width: 220px;
+  height: 48px;
+  border-radius: 8px;
+  margin-top: 16px;
+  background: linear-gradient(0deg, #f3f3f3 0%, #ffffff 100%);
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.196706);
+  font-family: Barlow Semi Condensed;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #3b4262;
 }
 
 /* Legend Section */
