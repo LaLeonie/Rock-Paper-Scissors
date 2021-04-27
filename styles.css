@@ -74,7 +74,6 @@ html {
 }
 
 .Wrapper > .GameSection {
-  margin-top: -80px;
 }
 
 .Wrapper > .LegendSection {
@@ -166,8 +165,11 @@ html {
 /* Game Section */
 
 .GameSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 312px;
-  min-height: 282px;
+  min-height: 50vh;
   margin-left: auto;
   margin-right: auto;
   --button-width: 8rem;
@@ -180,9 +182,6 @@ html {
   --inner-shadow-top-radius: 5px;
   --inner-shadow-side-radius: 1px;
   --button-radius: calc(var(--button-width) / 2);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
 }
 
 @media all and (min-width: 376px) {
@@ -198,11 +197,11 @@ html {
   }
 }
 
-.StepOne .GameSection {
+.StepOne.GameSection {
   background-image: url("./images/bg-triangle.svg");
   background-repeat: no-repeat;
-  background-position: center 90%;
-  background-size: 75%;
+  background-position: center;
+  background-size: 60%;
 }
 
 .GameSection .GameSection__row {
@@ -218,7 +217,24 @@ html {
   justify-content: center;
 }
 
+.StepOne .GameSection__row--second {
+  margin-bottom: 50px;
+}
+
+.StepOne .GameSection__result,
+.StepTwo .GameSection__result {
+  display: none;
+}
+
 .StepTwo .GameSection__row--second {
+  display: none;
+}
+
+.StepThree .GameSection__row--second {
+  display: flex;
+}
+
+.StepThree .GameSection__row--second .GameSection__button {
   display: none;
 }
 
@@ -327,6 +343,10 @@ html {
   text-transform: uppercase;
 }
 
+.StepOne .GameSection__caption {
+  display: none;
+}
+
 @media all and (min-width: 376px) {
   .GameSection__caption {
     font-size: 24px;
@@ -338,12 +358,8 @@ html {
 
 /* Result Section */
 
-.ResultSection {
-  position: absolute;
-  width: 80vw;
-  height: 40vh;
-  left: 10vw;
-  top: 52vh;
+.GameSection__result {
+  /* margin-top: 62px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -351,13 +367,13 @@ html {
   color: #ffffff;
 }
 
-.ResultSection__result {
+.Result__title {
   font-weight: 700;
   font-size: 56px;
   line-height: 67.2px;
 }
 
-.ResultSection__button {
+.Result__button {
   width: 220px;
   height: 48px;
   border-radius: 8px;
