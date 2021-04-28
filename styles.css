@@ -486,3 +486,27 @@ html {
 
 .HeaderSection__score @media all and (min-width: 376px) {
 }
+
+/* Rules section */
+
+.RulesPopup {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #fff;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  align-items: center;
+  padding: 95px 35px;
+}
+
+.RulesPopup h2 {
+  padding-bottom: 80px;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  color: #3b4262;
+}
