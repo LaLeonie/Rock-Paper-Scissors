@@ -87,7 +87,7 @@ html {
   }
 
   .Wrapper > .HeaderSection {
-    width: 60%;
+    width: 35%;
     margin-left: auto;
     margin-right: auto;
   }
@@ -197,6 +197,22 @@ html {
     --inner-shadow-top-radius: 10px;
     --inner-shadow-side-radius: 2px;
   }
+
+  .GameSection.StepTwo {
+    width: 35%;
+  }
+
+  .StepTwo,
+  .StepThree {
+    --button-width: 25rem;
+    --button-height: 25rem;
+    --border-width: 2.5rem;
+    --background-size: 8.5rem;
+  }
+
+  .GameSection.StepThree {
+    width: 50%;
+  }
 }
 
 .StepOne.GameSection {
@@ -242,6 +258,19 @@ html {
 
 .GameSection__item {
   position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+@media all and (min-width: 376px) {
+  .GameSection__item {
+    flex-direction: column-reverse;
+  }
+
+  .GameSection__item span {
+    margin-bottom: 4.5rem;
+    font-size: 1.8rem;
+  }
 }
 
 .GameSection__button {
@@ -324,9 +353,9 @@ html {
   clip-path: circle(50%);
 }
 
-.button--paper:hover:after,
-.button--scissors:hover:after,
-.button--rock:hover:after {
+.StepOne .button--paper:hover:after,
+.StepOne .button--scissors:hover:after,
+.StepOne .button--rock:hover:after {
   --hoverButton-width: calc(var(--button-width) * 1.3);
   --hoverButton-height: calc(var(--button-height) * 1.3);
   position: absolute;
@@ -375,6 +404,10 @@ html {
   color: #ffffff;
 }
 
+.GameSection__result--desktop {
+  display: none;
+}
+
 .Result__title {
   font-weight: 700;
   font-size: 56px;
@@ -391,11 +424,36 @@ html {
   font-family: Barlow Semi Condensed;
   font-style: normal;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 19px;
   letter-spacing: 2.5px;
   text-transform: uppercase;
   color: #3b4262;
+}
+
+@media all and (min-width: 376px) {
+  .GameSection__result--mobile {
+    display: none;
+  }
+  .GameSection__result--desktop {
+    display: flex;
+  }
+
+  .Result__title {
+    font-size: 3.5rem;
+  }
+
+  .Result__button {
+    height: 3.4rem;
+    width: 15rem;
+    font-size: 1.2rem;
+  }
+
+  .Result__button:hover,
+  .Result__button:focus {
+    color: #db2e4d;
+    cursor: pointer;
+  }
 }
 
 /* Legend Section */
