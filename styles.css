@@ -144,21 +144,24 @@ html {
 
 @media all and (min-width: 376px) {
   .HeaderSection__header {
-    font-size: 1.7rem;
+    font-size: 2.6rem;
     font-weight: 700;
-    line-height: 1.4rem;
+    line-height: 2.4rem;
     color: #fff;
   }
 
   .HeaderSection__score.Card {
-    /* background: linear-gradient(0deg, #f3f3f3 0%, #ffffff 100%);
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.196706);
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; */
+    min-height: 7rem;
     padding: 15px 0;
     width: 150px;
+  }
+
+  .Card__title {
+    font-size: 1.2rem;
+  }
+
+  .Card__score {
+    font-size: 3.8rem;
   }
 }
 
@@ -186,12 +189,11 @@ html {
 
 @media all and (min-width: 376px) {
   .GameSection {
-    height: 430px;
-    width: 476px;
-    --button-width: 200px;
-    --button-height: 200px;
-    --border-width: 20px;
-    --background-size: 70px;
+    width: 45rem;
+    --button-width: 16rem;
+    --button-height: 16rem;
+    --border-width: 1.5rem;
+    --background-size: 6rem;
     --inner-shadow-top-radius: 10px;
     --inner-shadow-side-radius: 2px;
   }
@@ -236,6 +238,10 @@ html {
 
 .StepThree .GameSection__row--second .GameSection__button {
   display: none;
+}
+
+.GameSection__item {
+  position: relative;
 }
 
 .GameSection__button {
@@ -318,20 +324,22 @@ html {
   clip-path: circle(50%);
 }
 
-.button--paper .btn:hover:after,
-.button--scissors .btn:hover:after,
-.button--rock .btn:hover:after {
+.button--paper:hover:after,
+.button--scissors:hover:after,
+.button--rock:hover:after {
+  --hoverButton-width: calc(var(--button-width) * 1.3);
+  --hoverButton-height: calc(var(--button-height) * 1.3);
   position: absolute;
   content: "";
   display: block;
-  width: calc(var(--button-width) * 1.3);
-  height: calc(var(--button-height) * 1.3);
+  width: var(--hoverButton-width);
+  height: var(--hoverButton-height);
   border-radius: var(--button-border-radius);
   z-index: -1;
   background: #fff;
   opacity: 0.1;
-  left: -50px;
-  top: -60px;
+  left: calc((var(--hoverButton-width) - var(--button-width)) * -0.5);
+  top: calc((var(--hoverButton-height) - var(--button-height)) * -0.4);
 }
 
 .GameSection__caption {
@@ -410,6 +418,12 @@ html {
 .LegendSection__button:focus {
   color: var(--dark-text);
   background-color: #fff;
+}
+
+@media all and (min-width: 376px) {
+  .LegendSection__button {
+    font-size: 1.3rem;
+  }
 }
 
 .HeaderSection__score @media all and (min-width: 376px) {
