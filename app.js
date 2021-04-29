@@ -1,11 +1,11 @@
-let closeRulesButton;
+console.log(localStorage);
 
 // define game object
-const initialGame = {
-  gameStatus: "firstStep",
+const gameStatus = {
+  step: "StepOne",
   player: {
     currentPick: {
-      selectiion: "",
+      selection: "",
       selectionClass: "",
       beats: "",
     },
@@ -29,12 +29,16 @@ const rules = [
   { selection: "rock", selectionClass: "button--rock", beats: "scissors" },
 ];
 
+const findBeats = (el) => {
+  return rules.filter((obj) => obj.selection == el)[0].beats;
+};
+
 //SETUP
 //sets initial localStorage
 let storedGame = JSON.parse(localStorage.getItem("RPS"));
 if (!storedGame) {
-  localStorage.setItem("RPS", JSON.stringify(initialGame));
-  storedGame = JSON.parse(JSON.stringify(initialGame));
+  localStorage.setItem("RPS", JSON.stringify(gameStatus));
+  storedGame = JSON.parse(JSON.stringify(gameStatus));
 }
 
 //adds player.overallScore from localStorage to DOM
@@ -43,12 +47,23 @@ document.querySelector(".Card__score").textContent = score;
 
 //THE GAME
 //1 - Update game.player
-const updatePlayer = (e) => {
-  //get class that is selected
-  //set currentPick
+const updatePlayer = (arr) => {
+  storedGame.player.currentPick = {
+    selection: arr[1].substring(5),
+    selectionClass: arr[1],
+    beats: findBeats(arr[1].substring(5)),
+  };
+  console.log("storedGame", storedGame);
 };
 
 //2 & 4 - Update DOM
+const updateDOM = (buttonEl, gameObj, newClass) => {
+  const gameSection = document.querySelector(".GameSection");
+  gameSection.classList.remove(gameObj.step);
+  gameSection.classList.add(newClass);
+  buttonEl.classList.remove(buttonEl.classList.item(1));
+};
+
 //upon gamestatus change
 
 //score change
@@ -60,7 +75,11 @@ const updatePlayer = (e) => {
 //handle game button click
 const handlePlay = (e) => {
   e.preventDefault();
-  console.log(e.target);
+  console.log(e.target.classList);
+  updatePlayer(e.target.classList);
+  updateDOM(e.target, gameStatus, "StepTwo");
+  gameStatus.step = "StepTwo";
+
   //Create Promise that
   //1. Updates game.player
   //2. Updates GameSection DOM with new game.gameStatus and game.player
@@ -83,15 +102,11 @@ const toggleRulesPopup = (e) => {
 
 // add event listeners to all  buttons
 document.addEventListener("DOMContentLoaded", function () {
-  const paperButton = document.querySelector(".button--paper");
-  const scissorsButton = document.querySelector(".button--scissors");
-  const rockButton = document.querySelector(".button--rock");
+  const playButtons = document.querySelectorAll(".GameSection__button");
+  playButtons.forEach((btn) => btn.addEventListener("click", handlePlay));
+
   const rulesButton = document.querySelector(".LegendSection__button");
   const closeRulesButtons = document.querySelectorAll(".RulesPopup__button");
-  console.log(closeRulesButtons);
-  paperButton.addEventListener("click", handlePlay);
-  scissorsButton.addEventListener("click", handlePlay);
-  rockButton.addEventListener("click", handlePlay);
   rulesButton.addEventListener("click", toggleRulesPopup);
   closeRulesButtons.forEach((btn) =>
     btn.addEventListener("click", toggleRulesPopup)
