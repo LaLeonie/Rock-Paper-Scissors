@@ -524,6 +524,10 @@ html {
   display: none;
 }
 
+.RulesPopup--hidden {
+  display: none;
+}
+
 @media all and (min-width: 376px) {
   .RulesPopup {
     --popupWidth: 800px;

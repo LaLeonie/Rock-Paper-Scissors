@@ -1,3 +1,5 @@
+let closeRulesButton;
+
 // define game object
 const initialGame = {
   gameStatus: "firstStep",
@@ -67,12 +69,31 @@ const handlePlay = (e) => {
   //5. Updates local storage
 };
 
-// add event listeners to all playing buttons
+const closeRules = (e) => {
+  console.log("Playing");
+  e.preventDefault();
+  document.querySelector(".RulesPopup").classList.toggle("RulesPopup--hidden");
+};
+
+//toggle rules
+const toggleRulesPopup = (e) => {
+  e.preventDefault();
+  document.querySelector(".RulesPopup").classList.toggle("RulesPopup--hidden");
+};
+
+// add event listeners to all  buttons
 document.addEventListener("DOMContentLoaded", function () {
   const paperButton = document.querySelector(".button--paper");
   const scissorsButton = document.querySelector(".button--scissors");
   const rockButton = document.querySelector(".button--rock");
+  const rulesButton = document.querySelector(".LegendSection__button");
+  const closeRulesButtons = document.querySelectorAll(".RulesPopup__button");
+  console.log(closeRulesButtons);
   paperButton.addEventListener("click", handlePlay);
   scissorsButton.addEventListener("click", handlePlay);
   rockButton.addEventListener("click", handlePlay);
+  rulesButton.addEventListener("click", toggleRulesPopup);
+  closeRulesButtons.forEach((btn) =>
+    btn.addEventListener("click", toggleRulesPopup)
+  );
 });
