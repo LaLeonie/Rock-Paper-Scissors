@@ -1,3 +1,5 @@
+const gameSection = document.querySelector(".GameSection");
+const playButtons = document.querySelectorAll(".GameSection__button");
 console.log(localStorage);
 
 // define game object
@@ -6,7 +8,6 @@ const gameStatus = {
   player: {
     currentPick: {
       selection: "",
-      selectionClass: "",
       beats: "",
     },
     currentWin: false,
@@ -14,8 +15,7 @@ const gameStatus = {
   },
   computer: {
     currentPick: {
-      selectiion: "",
-      selectionClass: "",
+      selection: "",
       beats: "",
     },
     overallScore: null,
@@ -24,9 +24,9 @@ const gameStatus = {
 
 //define rules
 const rules = [
-  { selection: "scissors", selectionClass: "button--scissors", beats: "paper" },
-  { selection: "paper", selectionClass: "button--paper", beats: "stone" },
-  { selection: "rock", selectionClass: "button--rock", beats: "scissors" },
+  { selection: "scissors", beats: "paper" },
+  { selection: "paper", beats: "stone" },
+  { selection: "rock", beats: "scissors" },
 ];
 
 const findBeats = (el) => {
@@ -46,25 +46,27 @@ const score = storedGame.player.overallScore;
 document.querySelector(".Card__score").textContent = score;
 
 //THE GAME
-//1 - Update game.player
-const updatePlayer = (arr) => {
+//1 - Update selection
+const updateGameObj = (str) => {
+  console.log({ str });
   storedGame.player.currentPick = {
-    selection: arr[1].substring(5),
-    selectionClass: arr[1],
-    beats: findBeats(arr[1].substring(5)),
+    selection: str.substring(8),
+    // beats: findBeats(str.substring(5)),
   };
-  console.log("storedGame", storedGame);
 };
 
 //2 & 4 - Update DOM
-const updateDOM = (buttonEl, gameObj, newClass) => {
-  const gameSection = document.querySelector(".GameSection");
-  gameSection.classList.remove(gameObj.step);
-  gameSection.classList.add(newClass);
-  buttonEl.classList.remove(buttonEl.classList.item(1));
+const updateDOM = (nodeEl, oldClass, newClass) => {
+  nodeEl.classList.toggle(oldClass);
+  nodeEl.classList.toggle(newClass);
 };
 
-//upon gamestatus change
+const updateButtonDOM = (nodeEl, oldClass, selection) => {
+  const buttonEl = nodeEl.childNodes[1];
+  updateDOM(nodeEl, oldClass, `button--${selection}`);
+  updateDOM(buttonEl, buttonEl.classList[1], `btn-${selection}`);
+  buttonEl.setAttribute("aria-label", selection);
+};
 
 //score change
 
@@ -74,11 +76,16 @@ const updateDOM = (buttonEl, gameObj, newClass) => {
 
 //handle game button click
 const handlePlay = (e) => {
+  const playerSelection = e.target.parentNode;
   e.preventDefault();
-  console.log(e.target.classList);
-  updatePlayer(e.target.classList);
-  updateDOM(e.target, gameStatus, "StepTwo");
-  gameStatus.step = "StepTwo";
+  updateGameObj(playerSelection.classList[1]);
+  updateDOM(gameSection, "StepOne", "StepTwo");
+  updateButtonDOM(
+    playButtons[0],
+    playButtons[0].classList[1],
+    storedGame.player.currentPick.selection
+  );
+  updateButtonDOM(playButtons[1], playButtons[1].classList[1], "loading");
 
   //Create Promise that
   //1. Updates game.player
