@@ -1,5 +1,6 @@
 const gameSection = document.querySelector(".GameSection");
 const playButtons = document.querySelectorAll(".GameSection__button");
+const resultNode = document.querySelector(".Result__title");
 console.log(localStorage);
 
 // define game object
@@ -25,12 +26,43 @@ const gameStatus = {
 //define rules
 const rules = [
   { selection: "scissors", beats: "paper" },
-  { selection: "paper", beats: "stone" },
+  { selection: "paper", beats: "rock" },
   { selection: "rock", beats: "scissors" },
 ];
 
+//helper functions
 const findBeats = (el) => {
   return rules.filter((obj) => obj.selection == el)[0].beats;
+};
+
+//make random selection
+const randomSelect = () => {
+  let randomNumber = Math.floor(Math.random() * 2) + 1;
+  let obj = rules[randomNumber];
+  // console.log({
+  //   randomSelection: obj.selection,
+  //   playerSelection: storedGame.player.currentPick.selection,
+  // });
+  if (obj.selection != storedGame.player.currentPick.selection) {
+    console.log({ randomNumber, obj });
+    return obj;
+  }
+  randomSelect();
+};
+
+//delay function
+const delay = (ms) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
+//find winner
+const playerWins = () => {
+  const playerBeats = storedGame.player.currentPick.beats;
+  const computerSelection = storedGame.computer.currentPick.selection;
+  if (playerBeats === computerSelection) {
+    return true;
+  }
+  return false;
 };
 
 //SETUP
@@ -47,11 +79,10 @@ document.querySelector(".Card__score").textContent = score;
 
 //THE GAME
 //1 - Update selection
-const updateGameObj = (str) => {
-  console.log({ str });
-  storedGame.player.currentPick = {
-    selection: str.substring(8),
-    // beats: findBeats(str.substring(5)),
+const updateSelectionObject = (player, str) => {
+  storedGame[player].currentPick = {
+    selection: str,
+    beats: findBeats(str),
   };
 };
 
@@ -78,7 +109,7 @@ const updateButtonDOM = (nodeEl, oldClass, selection) => {
 const handlePlay = (e) => {
   const playerSelection = e.target.parentNode;
   e.preventDefault();
-  updateGameObj(playerSelection.classList[1]);
+  updateSelectionObject("player", playerSelection.classList[1].substring(8));
   updateDOM(gameSection, "StepOne", "StepTwo");
   updateButtonDOM(
     playButtons[0],
@@ -86,6 +117,30 @@ const handlePlay = (e) => {
     storedGame.player.currentPick.selection
   );
   updateButtonDOM(playButtons[1], playButtons[1].classList[1], "loading");
+
+  delay(1000)
+    .then(() => randomSelect())
+    .then((selectObj) => {
+      updateSelectionObject("computer", selectObj.selection);
+    })
+    .then(() =>
+      updateButtonDOM(
+        playButtons[1],
+        playButtons[1].classList[1],
+        storedGame.computer.currentPick.selection
+      )
+    )
+    .then(() => {
+      setTimeout(500);
+    })
+    .then(() => {
+      updateDOM(gameSection, "StepTwo", "StepThree");
+      storedGame.player.currentWin = playerWins();
+      console.log(storedGame.player.currentWin);
+      storedGame.player.currentWin
+        ? (resultNode.textContent = "You Win")
+        : (resultNode.textContent = "Computer Wins");
+    });
 
   //Create Promise that
   //1. Updates game.player
