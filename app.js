@@ -25,8 +25,8 @@ const gameStatus = {
 
 //define rules
 const rules = [
-  { selection: "scissors", beats: "paper" },
   { selection: "paper", beats: "rock" },
+  { selection: "scissors", beats: "paper" },
   { selection: "rock", beats: "scissors" },
 ];
 
@@ -111,6 +111,7 @@ const handlePlay = (e) => {
   e.preventDefault();
   updateSelectionObject("player", playerSelection.classList[1].substring(8));
   updateDOM(gameSection, "StepOne", "StepTwo");
+
   updateButtonDOM(
     playButtons[0],
     playButtons[0].classList[1],
@@ -151,7 +152,6 @@ const handlePlay = (e) => {
 };
 
 const closeRules = (e) => {
-  console.log("Playing");
   e.preventDefault();
   document.querySelector(".RulesPopup").classList.toggle("RulesPopup--hidden");
 };
@@ -162,13 +162,23 @@ const toggleRulesPopup = (e) => {
   document.querySelector(".RulesPopup").classList.toggle("RulesPopup--hidden");
 };
 
+//game reset
+const gameReset = (e) => {
+  e.preventDefault();
+  updateDOM(gameSection, "StepThree", "StepOne");
+  playButtons.forEach((el, i) => {
+    updateButtonDOM(el, el.classList[1], rules[i].selection);
+  });
+};
+
 // add event listeners to all  buttons
 document.addEventListener("DOMContentLoaded", function () {
   const playButtons = document.querySelectorAll(".GameSection__button");
   playButtons.forEach((btn) => btn.addEventListener("click", handlePlay));
-
+  const playAgainButton = document.querySelector(".Result__button");
   const rulesButton = document.querySelector(".LegendSection__button");
   const closeRulesButtons = document.querySelectorAll(".RulesPopup__button");
+  playAgainButton.addEventListener("click", gameReset);
   rulesButton.addEventListener("click", toggleRulesPopup);
   closeRulesButtons.forEach((btn) =>
     btn.addEventListener("click", toggleRulesPopup)
