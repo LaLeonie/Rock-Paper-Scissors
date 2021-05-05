@@ -1,7 +1,6 @@
 const gameSection = document.querySelector(".GameSection");
 const playButtons = document.querySelectorAll(".GameSection__button");
 const resultNode = document.querySelector(".Result__title");
-localStorage.clear();
 
 // define game object
 const gameStatus = {
@@ -136,6 +135,7 @@ const handlePlay = (e) => {
         : (resultNode.textContent = "Computer Wins");
       updateScoreDOM();
       localStorage.setItem("RPS", JSON.stringify(storedGame));
+      console.log(localStorage.getItem("RPS"));
     });
 };
 
