@@ -28,9 +28,10 @@ const rules = [
   { selection: "rock", beats: "scissors" },
 ];
 
-//helper functions
-const findBeats = (el) => {
-  return rules.filter((obj) => obj.selection == el)[0].beats;
+//DOM MODIFICATION FUNCTIONS
+const updateDOM = (nodeEl, oldClass, newClass) => {
+  nodeEl.classList.toggle(oldClass);
+  nodeEl.classList.toggle(newClass);
 };
 
 const updateScoreDOM = () => {
@@ -38,24 +39,40 @@ const updateScoreDOM = () => {
     storedGame.player.overallScore;
 };
 
-//make random selection
+const updateButtonDOM = (nodeEl, oldClass, selection) => {
+  const buttonEl = nodeEl.childNodes[1];
+  updateDOM(nodeEl, oldClass, `button--${selection}`);
+  updateDOM(buttonEl, buttonEl.classList[1], `btn-${selection}`);
+  buttonEl.setAttribute("aria-label", selection);
+};
+
+//GAME OBJECT MODIFICATION
+const updateSelectionObject = (player, str) => {
+  storedGame[player].currentPick = {
+    selection: str,
+    beats: findBeats(str),
+  };
+};
+
+//HELPER FUNCTIONS
+const findBeats = (el) => {
+  return rules.filter((obj) => obj.selection == el)[0].beats;
+};
+
+const delay = (ms) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
 const randomSelect = () => {
   let randomNumber = Math.floor(Math.random() * 2) + 1;
   let obj = rules[randomNumber];
   if (obj.selection != storedGame.player.currentPick.selection) {
-    console.log({ randomNumber, obj });
     return obj;
   }
   randomSelect();
 };
 
-//delay function
-const delay = (ms) => {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-};
-
-//find winner
-const playerWins = () => {
+const checkPlayerWins = () => {
   const playerBeats = storedGame.player.currentPick.beats;
   const computerSelection = storedGame.computer.currentPick.selection;
   if (playerBeats === computerSelection) {
@@ -66,8 +83,7 @@ const playerWins = () => {
   return false;
 };
 
-//SETUP
-//sets initial localStorage
+//GAME
 let storedGame = JSON.parse(localStorage.getItem("RPS"));
 if (!storedGame) {
   localStorage.setItem("RPS", JSON.stringify(gameStatus));
@@ -75,35 +91,13 @@ if (!storedGame) {
 }
 updateScoreDOM();
 
-//THE GAME
-//1 - Update selection
-const updateSelectionObject = (player, str) => {
-  storedGame[player].currentPick = {
-    selection: str,
-    beats: findBeats(str),
-  };
-};
-
-//Update DOM
-const updateDOM = (nodeEl, oldClass, newClass) => {
-  nodeEl.classList.toggle(oldClass);
-  nodeEl.classList.toggle(newClass);
-};
-
-const updateButtonDOM = (nodeEl, oldClass, selection) => {
-  const buttonEl = nodeEl.childNodes[1];
-  updateDOM(nodeEl, oldClass, `button--${selection}`);
-  updateDOM(buttonEl, buttonEl.classList[1], `btn-${selection}`);
-  buttonEl.setAttribute("aria-label", selection);
-};
-
-//handle game button click
 const handlePlay = (e) => {
-  const playerSelection = e.target.parentNode;
   e.preventDefault();
+  const playerSelection = e.target.parentNode;
   updateSelectionObject("player", playerSelection.classList[1].substring(8));
+  const randomSelectionObj = randomSelect();
+  console.log(randomSelectionObj);
   updateDOM(gameSection, "StepOne", "StepTwo");
-
   updateButtonDOM(
     playButtons[0],
     playButtons[0].classList[1],
@@ -112,9 +106,8 @@ const handlePlay = (e) => {
   updateButtonDOM(playButtons[1], playButtons[1].classList[1], "loading");
 
   delay(1000)
-    .then(() => randomSelect())
-    .then((selectObj) => {
-      updateSelectionObject("computer", selectObj.selection);
+    .then(() => {
+      updateSelectionObject("computer", randomSelectionObj.selection);
     })
     .then(() =>
       updateButtonDOM(
@@ -128,7 +121,7 @@ const handlePlay = (e) => {
     })
     .then(() => {
       updateDOM(gameSection, "StepTwo", "StepThree");
-      storedGame.player.currentWin = playerWins();
+      storedGame.player.currentWin = checkPlayerWins();
       console.log(storedGame.player.currentWin);
       storedGame.player.currentWin
         ? (resultNode.textContent = "You Win")
@@ -139,18 +132,13 @@ const handlePlay = (e) => {
     });
 };
 
-const closeRules = (e) => {
-  e.preventDefault();
-  document.querySelector(".RulesPopup").classList.toggle("RulesPopup--hidden");
-};
-
-//toggle rules
+//toggle rules window
 const toggleRulesPopup = (e) => {
   e.preventDefault();
   document.querySelector(".RulesPopup").classList.toggle("RulesPopup--hidden");
 };
 
-//game reset
+//reset Game
 const gameReset = (e) => {
   e.preventDefault();
   updateDOM(gameSection, "StepThree", "StepOne");
@@ -165,7 +153,6 @@ const gameReset = (e) => {
     selection: "",
     beats: "",
   };
-  console.log(storedGame);
 };
 
 // add event listeners to all  buttons
