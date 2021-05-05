@@ -1,7 +1,7 @@
 const gameSection = document.querySelector(".GameSection");
 const playButtons = document.querySelectorAll(".GameSection__button");
 const resultNode = document.querySelector(".Result__title");
-console.log(localStorage);
+localStorage.clear();
 
 // define game object
 const gameStatus = {
@@ -11,7 +11,6 @@ const gameStatus = {
       selection: "",
       beats: "",
     },
-    currentWin: false,
     overallScore: 0,
   },
   computer: {
@@ -35,14 +34,15 @@ const findBeats = (el) => {
   return rules.filter((obj) => obj.selection == el)[0].beats;
 };
 
+const updateScoreDOM = () => {
+  document.querySelector(".Card__score").textContent =
+    storedGame.player.overallScore;
+};
+
 //make random selection
 const randomSelect = () => {
   let randomNumber = Math.floor(Math.random() * 2) + 1;
   let obj = rules[randomNumber];
-  // console.log({
-  //   randomSelection: obj.selection,
-  //   playerSelection: storedGame.player.currentPick.selection,
-  // });
   if (obj.selection != storedGame.player.currentPick.selection) {
     console.log({ randomNumber, obj });
     return obj;
@@ -60,8 +60,10 @@ const playerWins = () => {
   const playerBeats = storedGame.player.currentPick.beats;
   const computerSelection = storedGame.computer.currentPick.selection;
   if (playerBeats === computerSelection) {
+    storedGame.player.overallScore += 1;
     return true;
   }
+  storedGame.computer.overallScore += 1;
   return false;
 };
 
@@ -72,10 +74,7 @@ if (!storedGame) {
   localStorage.setItem("RPS", JSON.stringify(gameStatus));
   storedGame = JSON.parse(JSON.stringify(gameStatus));
 }
-
-//adds player.overallScore from localStorage to DOM
-const score = storedGame.player.overallScore;
-document.querySelector(".Card__score").textContent = score;
+updateScoreDOM();
 
 //THE GAME
 //1 - Update selection
@@ -86,7 +85,7 @@ const updateSelectionObject = (player, str) => {
   };
 };
 
-//2 & 4 - Update DOM
+//Update DOM
 const updateDOM = (nodeEl, oldClass, newClass) => {
   nodeEl.classList.toggle(oldClass);
   nodeEl.classList.toggle(newClass);
@@ -98,12 +97,6 @@ const updateButtonDOM = (nodeEl, oldClass, selection) => {
   updateDOM(buttonEl, buttonEl.classList[1], `btn-${selection}`);
   buttonEl.setAttribute("aria-label", selection);
 };
-
-//score change
-
-//3 -  Update game.computer
-
-//5 - Update local storage
 
 //handle game button click
 const handlePlay = (e) => {
@@ -141,14 +134,9 @@ const handlePlay = (e) => {
       storedGame.player.currentWin
         ? (resultNode.textContent = "You Win")
         : (resultNode.textContent = "Computer Wins");
+      updateScoreDOM();
+      localStorage.setItem("RPS", JSON.stringify(storedGame));
     });
-
-  //Create Promise that
-  //1. Updates game.player
-  //2. Updates GameSection DOM with new game.gameStatus and game.player
-  //3. Calls timeout function to set game.computer.currentPick & game.gameStatus
-  //4. Updates GameSection & HeaderSection DOM with game.gameStatus, game.player, game.computer
-  //5. Updates local storage
 };
 
 const closeRules = (e) => {
@@ -169,6 +157,15 @@ const gameReset = (e) => {
   playButtons.forEach((el, i) => {
     updateButtonDOM(el, el.classList[1], rules[i].selection);
   });
+  storedGame.player.currentPick = {
+    selection: "",
+    beats: "",
+  };
+  storedGame.computer.currentPick = {
+    selection: "",
+    beats: "",
+  };
+  console.log(storedGame);
 };
 
 // add event listeners to all  buttons
