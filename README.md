@@ -12,9 +12,6 @@ This is my solution to the [Rock, Paper, Scissors challenge on Frontend Mentor](
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
   - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
-- [Author](#author)
-- [Acknowledgments](#acknowledgments)
 
 ## Overview
 
@@ -31,12 +28,9 @@ Users should be able to:
 ![](./images/screenshot.png)
 ![](./images/screenshot_mobile.png)
 
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
-
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [Add live site URL here](https://laleonie.github.io/Rock-Paper-Scissors/)
 
 ## My process
 
@@ -44,70 +38,68 @@ Users should be able to:
 
 - Semantic HTML5 markup
 - CSS custom properties
-- Flexbox
-- CSS Grid
 - Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
+- Vanilla Js
 
 ### Approach
 
-- Mobile First
+- mobile-first design
 - BEM
-- TDD
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+In this challenge, I very much struggled with getting the right layout down on all viewports. First, I used absolute positioning on the button elements but then I noticed that the design was running wild on all different mobile viewports. The current version uses flexboxes, which is more controllable but still leads to some unexpected. In particular, my code still doesn't ensure the correct distance between the buttons on all viewports and a uniform alignment with the background triangle.
 
-To see how you can add code snippets, see below:
+I tried to follow the BEM approach in terms of class naming. Although this has given me more consistency with my class namings, I feel that it led a bit to a naming overload. With hindsight, I would use shorter/fewer class names for a project of this size.
 
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
+I am particularly proud of the styling of the buttons, which I achieved without any reference from codepen. It feels like I'm finally getting to grips with the :before and :after pseudo class.
 
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
+Overall, I found that I was a lot more confident with using CSS - although layout still remains a hurdle to be conquered. Nevertheless, I spent a lot more time on the CSS of this project, than on Js. In fact, the Js part was done surprisingly seamless.
+
+This being said, there is still a bug in the recursion function, that I struggle to figure out. When the function enters the if-statement, it runs again but then returns undefined - although gameElement is assigned correctly.
 
 ```js
-const proudOfThisFunc = () => {
-  console.log("🎉");
+const randomSelect = () => {
+  const randomNumber = Math.floor(Math.random() * 2) + 1;
+  const gameElement = rules[randomNumber].selection;
+  if (gameElement === storedGame.player.currentPick.selection) {
+    randomSelect();
+  } else {
+    return gameElement;
+  }
 };
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+I'm particularly proud of the Promise function though, which simulates the delay for the computer's turn.
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+```js
+delay(1000)
+  .then(() => {
+    updateSelectionObject("computer", randomSelectionEl);
+  })
+  .then(() =>
+    updateButtonDOM(
+      playButtons[1],
+      playButtons[1].classList[1],
+      storedGame.computer.currentPick.selection
+    )
+  )
+  .then(() => {
+    setTimeout(500);
+  })
+  .then(() => {
+    updateDOM(gameSection, "StepTwo", "StepThree");
+    storedGame.player.currentWin = checkPlayerWins();
+    storedGame.player.currentWin
+      ? (resultNode.textContent = "You Win")
+      : (resultNode.textContent = "Computer Wins");
+    updateScoreDOM();
+    localStorage.setItem("RPS", JSON.stringify(storedGame));
+  });
+```
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
-
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
-
-### Useful resources
-
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
-
-## Author
-
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+In future projects, I wan to avoid getting bogged down into CSS before starting the Js part.
+I want to get more confident with CSS layout and how to create layouts that is consistent across devices.
+I also want to make my code more robust by applying TDD.
