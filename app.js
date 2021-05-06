@@ -59,17 +59,22 @@ const findBeats = (el) => {
   return rules.filter((obj) => obj.selection == el)[0].beats;
 };
 
+const findObject = (el) => {
+  return rules.filter((obj) => obj.selection == el)[0];
+};
+
 const delay = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
 const randomSelect = () => {
-  let randomNumber = Math.floor(Math.random() * 2) + 1;
-  let obj = rules[randomNumber];
-  if (obj.selection != storedGame.player.currentPick.selection) {
-    return obj;
+  const randomNumber = Math.floor(Math.random() * 2) + 1;
+  const gameElement = rules[randomNumber].selection;
+  if (gameElement === storedGame.player.currentPick.selection) {
+    randomSelect();
+  } else {
+    return gameElement;
   }
-  randomSelect();
 };
 
 const checkPlayerWins = () => {
@@ -95,8 +100,7 @@ const handlePlay = (e) => {
   e.preventDefault();
   const playerSelection = e.target.parentNode;
   updateSelectionObject("player", playerSelection.classList[1].substring(8));
-  const randomSelectionObj = randomSelect();
-  console.log(randomSelectionObj);
+  const randomSelectionEl = randomSelect();
   updateDOM(gameSection, "StepOne", "StepTwo");
   updateButtonDOM(
     playButtons[0],
@@ -107,7 +111,7 @@ const handlePlay = (e) => {
 
   delay(1000)
     .then(() => {
-      updateSelectionObject("computer", randomSelectionObj.selection);
+      updateSelectionObject("computer", randomSelectionEl);
     })
     .then(() =>
       updateButtonDOM(
@@ -122,13 +126,11 @@ const handlePlay = (e) => {
     .then(() => {
       updateDOM(gameSection, "StepTwo", "StepThree");
       storedGame.player.currentWin = checkPlayerWins();
-      console.log(storedGame.player.currentWin);
       storedGame.player.currentWin
         ? (resultNode.textContent = "You Win")
         : (resultNode.textContent = "Computer Wins");
       updateScoreDOM();
       localStorage.setItem("RPS", JSON.stringify(storedGame));
-      console.log(localStorage.getItem("RPS"));
     });
 };
 
