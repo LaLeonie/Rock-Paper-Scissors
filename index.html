@@ -40,7 +40,9 @@
           </div>
           <div class="GameSection__result GameSection__result--desktop">
             <span class="Result__title">You win</span>
-            <button class="Result__button">Play Again</button>
+            <button class="Result__button" aria-label="Play Again">
+              Play Again
+            </button>
           </div>
           <div class="GameSection__item">
             <div class="GameSection__button button--scissors">
@@ -57,7 +59,9 @@
           </div>
           <div class="GameSection__result GameSection__result--mobile">
             <span class="Result__title">You win</span>
-            <button class="Result__button">Play Again</button>
+            <button class="Result__button" aria-label="Play Again">
+              Play Again
+            </button>
           </div>
         </div>
       </div>
@@ -69,13 +73,23 @@
     <div class="RulesPopup RulesPopup--hidden">
       <div class="RulesPopup__header">
         <h2>Rules</h2>
-        <button class="RulesPopup__button RulesPopup__button-desktop">
-          <img src="./images/icon-close.svg" />
+        <button
+          class="RulesPopup__button RulesPopup__button-desktop"
+          aria-label="rules-popup"
+        >
+          <img src="./images/icon-close.svg" alt="close icon" />
         </button>
       </div>
-      <img class="RulesPopup__rules" src="./images/image-rules.svg" />
-      <button class="RulesPopup__button RulesPopup__button-mobile">
-        <img src="./images/icon-close.svg" />
+      <img
+        class="RulesPopup__rules"
+        src="./images/image-rules.svg"
+        als="rules: hand beats stone, stone beats scissors, scissors beat hand"
+      />
+      <button
+        class="RulesPopup__button RulesPopup__button-mobile"
+        aria-label="rules-popup"
+      >
+        <img src="./images/icon-close.svg" alt="close icon" />
       </button>
     </div>
     <script src="app.js"></script>
