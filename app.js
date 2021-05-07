@@ -71,7 +71,7 @@ const randomSelect = () => {
   const randomNumber = Math.floor(Math.random() * 2) + 1;
   const gameElement = rules[randomNumber].selection;
   if (gameElement === storedGame.player.currentPick.selection) {
-    randomSelect();
+    return randomSelect();
   } else {
     return gameElement;
   }
