@@ -147,24 +147,19 @@ const gameReset = (e) => {
   playButtons.forEach((el, i) => {
     updateButtonDOM(el, el.classList[1], rules[i].selection);
   });
-  storedGame.player.currentPick = {
-    selection: "",
-    beats: "",
-  };
-  storedGame.computer.currentPick = {
-    selection: "",
-    beats: "",
-  };
+  storedGame.player.currentPick = gameStatus.player.currentPick;
+  storedGame.computer.currentPick = gameStatus.computer.currentPick;
+  console.log(storedGame);
 };
 
 // add event listeners to all  buttons
 document.addEventListener("DOMContentLoaded", function () {
   const playButtons = document.querySelectorAll(".GameSection__button");
   playButtons.forEach((btn) => btn.addEventListener("click", handlePlay));
-  const playAgainButton = document.querySelector(".Result__button");
+  const playAgainButtons = document.querySelectorAll(".Result__button");
   const rulesButton = document.querySelector(".LegendSection__button");
   const closeRulesButtons = document.querySelectorAll(".RulesPopup__button");
-  playAgainButton.addEventListener("click", gameReset);
+  playAgainButtons.forEach((btn) => btn.addEventListener("click", gameReset));
   rulesButton.addEventListener("click", toggleRulesPopup);
   closeRulesButtons.forEach((btn) =>
     btn.addEventListener("click", toggleRulesPopup)
